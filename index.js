@@ -3,7 +3,7 @@ const { WebSocketServer } = require("ws");
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let state = {
-  text: "Cole seu roteiro aqui e pressione Play para começar.\n\nUse os controles na página Admin para ajustar a velocidade, tamanho da fonte e posição do texto.\n\nBoa gravação!",
+  text: "Cole seu roteiro aqui e pressione Play para comecar.\n\nUse os controles na pagina Admin para ajustar a velocidade, tamanho da fonte e posicao do texto.\n\nBoa gravacao!",
   playing: false,
   speed: 3,
   scrollPosition: 0,
@@ -232,7 +232,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--acce
 
 <script>
 let ws, reconnectTimer;
-let localState = JSON.parse(JSON.stringify(${JSON.stringify(state)}));
+let localState = {text:'',playing:false,speed:3,scrollPosition:0,fontSize:52,lineWidth:75,countdown:false,countdownValue:3,highlightLine:true};
 let isSending = false;
 
 function connect() {
