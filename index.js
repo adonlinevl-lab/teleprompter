@@ -193,7 +193,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--acce
       </div>
       <div class="pos-row">
         <span id="posLabel">0%</span>
-        <span id="timeLeft">—</span>
+        <span id="timeLeft">-</span>
       </div>
       <div class="jump-row">
         <button class="jump-btn" onclick="jump(-10)">← 10 linhas</button>
@@ -292,7 +292,7 @@ function updateProgress(pos) {
   document.getElementById('posLabel').textContent = pct + '%';
   const words = localState.text.trim().split(/\s+/).length;
   const remaining = Math.round((words * (1 - pos)) / 130);
-  document.getElementById('timeLeft').textContent = remaining > 0 ? remaining + ' min restantes' : '—';
+  document.getElementById('timeLeft').textContent = remaining > 0 ? remaining + ' min restantes' : '-';
 }
 
 function updateWordCount(text) {
@@ -678,9 +678,9 @@ const server = http.createServer((req, res) => {
   const url = req.url.split("?")[0];
   const pages = {
     "/": () => { res.writeHead(302, { Location: "/admin" }); res.end(); },
-    "/admin": () => { res.writeHead(200, { "Content-Type": "text/html" }); res.end(pageAdmin()); },
-    "/view":  () => { res.writeHead(200, { "Content-Type": "text/html" }); res.end(pageViewer(false)); },
-    "/mirror":() => { res.writeHead(200, { "Content-Type": "text/html" }); res.end(pageViewer(true)); },
+    "/admin": () => { res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" }); res.end(pageAdmin()); },
+    "/view":  () => { res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" }); res.end(pageViewer(false)); },
+    "/mirror":() => { res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" }); res.end(pageViewer(true)); },
   };
   if (pages[url]) pages[url]();
   else { res.writeHead(404); res.end("Not found"); }
