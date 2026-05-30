@@ -143,6 +143,10 @@ function pageAdmin() {
 '<button class="jbtn" onclick="resetPos()">Inicio</button>' +
 '<button class="jbtn" onclick="jump(10)">+ 10 linhas</button>' +
 '</div></div>' +
+'<div class="scrubsec">' +
+'<div class="stitle">Controle Manual</div>' +
+'<div id="scrubpad"><div id="scrubfill" style="height:0%"></div><div class="sarrow">^</div><div class="slbl">arraste para posicionar</div><div class="sarrow">v</div></div>' +
+'</div>' +
 '<div class="sec">' +
 '<div class="stitle">Atalhos</div>' +
 '<div class="shortcuts">' +
@@ -283,7 +287,7 @@ function pageAdmin() {
 +'},{passive:false});'
 +'document.addEventListener("touchend",function(){if(scrubActive){scrubActive=false;pad.classList.remove("active");}});'
 +'}'  +
-'window.addEventListener("DOMContentLoaded",function(){scrubInit();connect();});' +
+'scrubInit();connect();' +
 '<\/script></body></html>';
 }
 
