@@ -84,7 +84,7 @@ function pageAdmin() {
 '.shortcuts{display:flex;flex-direction:column;gap:6px;}' +
 '.shrow{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text3);}' +
 '.scrubsec{padding:20px;border-bottom:1px solid var(--border);}'  +
-'#scrubpad{width:100%;height:160px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);cursor:ns-resize;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;user-select:none;position:relative;overflow:hidden;transition:border-color .15s;}'  +
+'#scrubpad{width:100%;height:160px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);cursor:row-resize;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;user-select:none;position:relative;overflow:hidden;transition:border-color .15s;}'  +
 '#scrubpad:hover{border-color:var(--accent);}'  +
 '#scrubpad.active{border-color:var(--accent);background:var(--surface3);}'  +
 '#scrubpad .sarrow{color:var(--text3);font-size:22px;line-height:1;}'  +
@@ -262,18 +262,15 @@ function pageAdmin() {
 'var scrubActive=false,scrubStart=0,scrubBase=0;'
 +'function scrubInit(){'
 +'var pad=document.getElementById("scrubpad");'
-+'pad.addEventListener("mousedown",function(e){scrubActive=true;scrubStart=e.clientY;scrubBase=ls.scrollPosition;pad.classList.add("active");e.preventDefault();});'
-+'document.addEventListener("mousemove",function(e){'
-+'if(!scrubActive)return;'
-+'var dy=e.clientY-scrubStart;'
-+'var padH=pad.offsetHeight;'
-+'var sp=Math.max(0,Math.min(1,scrubBase+(dy/padH)));'
++'pad.addEventListener("wheel",function(e){'
++'e.preventDefault();'
++'var delta=e.deltaY/600;'
++'var sp=Math.max(0,Math.min(1,ls.scrollPosition+delta));'
 +'ls.scrollPosition=sp;'
 +'if(ws&&ws.readyState===1)ws.send(JSON.stringify({type:"update",patch:{scrollPosition:sp,playing:false}}));'
 +'updateProgress(sp);'
 +'document.getElementById("scrubfill").style.height=Math.round(sp*100)+"%";'
-+'});'
-+'document.addEventListener("mouseup",function(){if(scrubActive){scrubActive=false;pad.classList.remove("active");}});'
++'},{passive:false});'
 +'pad.addEventListener("touchstart",function(e){scrubActive=true;scrubStart=e.touches[0].clientY;scrubBase=ls.scrollPosition;pad.classList.add("active");e.preventDefault();},{passive:false});'
 +'document.addEventListener("touchmove",function(e){'
 +'if(!scrubActive)return;'
