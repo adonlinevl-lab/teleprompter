@@ -283,8 +283,7 @@ function pageAdmin() {
 +'},{passive:false});'
 +'document.addEventListener("touchend",function(){if(scrubActive){scrubActive=false;pad.classList.remove("active");}});'
 +'}'  +
-'scrubInit();'
-+'connect();' +
+'window.addEventListener("DOMContentLoaded",function(){scrubInit();connect();});' +
 '<\/script></body></html>';
 }
 
